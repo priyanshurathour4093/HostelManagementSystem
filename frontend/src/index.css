@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+*{
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  
+
+   
+    
+
+}
+@layer utilities {
+  .scrollbar-hidden::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scrollbar-hidden {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+}
+/* Hide scrollbar for the entire website */
+::-webkit-scrollbar {
+  display: none; /* Hide scrollbar for webkit (Chrome, Safari, etc.) */
+}
+
+/* Optional: If you want to style scrollbar for Firefox */
+/* Note: Firefox currently doesn't support styling scrollbar with CSS */
+/* You can use JavaScript or other techniques to style scrollbar for Firefox */
+/* For this example, we are just hiding it */
+* {
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
+}
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.nav-links{
+  padding: 0;
+  max-height: 60%;
+}
+.navbar-items{
+  height: 100%;
+}
+
+.login-page{
+  height: 100%;
+}

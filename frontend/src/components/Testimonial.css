@@ -1,0 +1,14 @@
+@keyframes left {
+    0% {
+      transform: translateX(-0.7vw);
+    }
+  
+    100% {
+      transform: translateX(0.7vw);
+    }
+  }
+  
+  .animate-left {
+    animation: left 2s finite;
+    animation-delay: 2s;
+  }

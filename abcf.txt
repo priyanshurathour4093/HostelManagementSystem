@@ -1,0 +1,9 @@
+ { 
+    "fullName":"YashRaj13", 
+    "rollNumber":"11134", 
+    "email":"YashRaj11452@gmail.com", 
+    "password":"12345678", 
+    "confirmPassword":"12345678", 
+    "gender":"M", 
+    "dateOfJoining":"2024-04-03" 
+ } 
