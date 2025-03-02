@@ -84,14 +84,18 @@ function App() {
           // Check if the user is admin
 
           const extractValuesFromJWT = (jwtToken) => {
-            const tokenParts = jwtToken.split(".");
-            if (tokenParts.length !== 3) {
-              throw new Error("Invalid JWT token");
+            try {
+              const tokenParts = jwtToken.split(".");
+              if (tokenParts.length !== 3) {
+                throw new Error("Invalid JWT token format");
+              }
+              const base64Payload = tokenParts[1];
+              const decodedPayload = atob(base64Payload);
+              return JSON.parse(decodedPayload);
+            } catch (error) {
+              console.error("Error decoding JWT:", error.message);
+              return null;
             }
-            const base64Payload = tokenParts[1];
-            const decodedPayload = atob(base64Payload);
-            const payloadObj = JSON.parse(decodedPayload);
-            return payloadObj;
           };
           // Example usage:
           const payload = extractValuesFromJWT(jwtToken);
