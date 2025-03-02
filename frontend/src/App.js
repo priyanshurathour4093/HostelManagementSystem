@@ -4,20 +4,14 @@ import Navbar from "./components/Navbar";
 import Dashboard from "./components/Dashboard";
 import Announcement from "./components/Announcement";
 import SignUp from "./components/Signuppage";
-// import Signup from './components/Signup';
-// import Home from './components/Home';
 import Login from "./components/Loginpage";
-// import SignUp from './components/SignUp';
 import RoomList from "./components/RoomList";
 import Contact from "./components/Contact";
 import Complaints from "./components/Complaints";
 import Workers from "./components/Workers";
 import FeeDetails from "./components/FeeDetails";
 import Footer from "./components/Footer";
-// import Student from './components/Student';
 import ChatRoom from "./components/Chatrooms";
-import chatgroup from "./components/Chatgroup";
-// import Chatgroup from './components/Chatgroup';
 import HomePage from "./components/Homepage";
 import Student from "./components/Student";
 import Rules from "./components/Rules";
@@ -41,7 +35,6 @@ import Signup2 from "./components/signuppage2";
 import Signup3 from "./components/signuppage3";
 import Forgotpassword from "./components/forgotpassword";
 import ResetPassword from "./components/Resetpassword";
-import ResetPassword1 from "./components/Resetpassword";
 import ProfileDropdown from "./components/ProfileDropdown";
 
 function App() {
