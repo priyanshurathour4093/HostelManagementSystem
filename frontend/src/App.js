@@ -105,11 +105,11 @@ function App() {
           // console.log("Is admin:", payload.admin);
           // console.log("Is admin:", payload.userId);
           localStorage.setItem("cookie", jwtCookie);
-          localStorage.setItem("Email", payload.email);
+          localStorage.setItem("email", payload.email); // Changed "Email" to lowercase for consistency
           localStorage.setItem("admin", payload.admin);
-          localStorage.setItem("superadmin", payload.super_admin);
+          localStorage.setItem("super_admin", payload.super_admin); // Changed to match API response
           localStorage.setItem("hostel_no", payload.hostel_no);
-          localStorage.setItem("userId", payload.userId);
+          localStorage.setItem("user_id", payload.userId); // Changed "userId" to snake_case
           localStorage.setItem("full_name", payload.full_name);
           localStorage.setItem("currently_present", payload.present);
           console.log(localStorage.getItem("admin"));
