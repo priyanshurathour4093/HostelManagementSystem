@@ -119,10 +119,8 @@ function App() {
           const hostel_no = localStorage.getItem("hostel_no");
           console.log(isSuperAdmin);
           if (isSuperAdmin) {
-            // Redirect to the admin dashboard
             window.location.href = "/admindashboard";
           } else if (isAdmin) {
-            // Redirect to the user dashboard
             window.location.href = `/admindashboard/${hostel_no}`;
           } else {
             window.location.href = "/";
@@ -132,11 +130,9 @@ function App() {
         }
       } else {
         console.error("Login failed:", response.statusText);
-        // Handle unsuccessful login (display error message, etc.)
       }
     } catch (error) {
       console.error("Error logging in:", error);
-      // Handle error as needed
     }
   };
 
