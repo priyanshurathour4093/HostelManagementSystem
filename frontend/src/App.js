@@ -47,94 +47,84 @@ function App() {
       contactsSectionRef.current.scrollIntoView({ behavior: "smooth" });
     }
   };
-  const handleSubmit = async (formData) => {
-    // event.preventDefault();
-    const { email, password } = formData;
+const handleSubmit = async (formData) => {
+  // Extract email and password from form data
+  const { email, password } = formData;
 
-    console.log("Submitted with values:", email, password);
-    const jsonData = JSON.stringify({
-      email,
-      password,
+  console.log("Submitted with values:", email, password);
+
+  // Prepare data for API request
+  const jsonData = JSON.stringify({ email, password });
+
+  try {
+    // Send login request to the backend
+    const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/auth/login`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: jsonData,
+      credentials: "include",
     });
-    console.log(jsonData);
-    try {
-      const response = await fetch("http://localhost:5000/api/auth/login", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: jsonData,
-        credentials: "include",
-      });
 
-      response.text().then((text) => {
-        setResponseMsg(text);
-        console.log(text);
-      });
-      if (response.ok) {
-        setResponseType("success");
-        const jwtCookie = document.cookie
-          .split("; ")
-          .find((row) => row.startsWith("jwt="));
+    // Process server response
+    response.text().then((text) => {
+      setResponseMsg(text);
+      console.log(text);
+    });
 
-        if (jwtCookie) {
-          const jwtToken = jwtCookie.split("=")[1];
-          console.log("JWT Token:", jwtToken);
-          // Check if the user is admin
+    if (response.ok) {
+      setResponseType("success");
 
-          const extractValuesFromJWT = (jwtToken) => {
-            try {
-              const tokenParts = jwtToken.split(".");
-              if (tokenParts.length !== 3) {
-                throw new Error("Invalid JWT token format");
-              }
-              const base64Payload = tokenParts[1];
-              const decodedPayload = atob(base64Payload);
-              return JSON.parse(decodedPayload);
-            } catch (error) {
-              console.error("Error decoding JWT:", error.message);
-              return null;
-            }
-          };
-          // Example usage:
-          const payload = extractValuesFromJWT(jwtToken);
+      // Extract JWT token from cookies
+      const jwtCookie = document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("jwt="));
 
-          // console.log("Decoded Payload:", payload);
-          // console.log("Email:", payload.email);
-          // console.log("Is admin:", payload.admin);
-          // console.log("Is admin:", payload.userId);
-          localStorage.setItem("cookie", jwtCookie);
-          localStorage.setItem("email", payload.email); // Changed "Email" to lowercase for consistency
-          localStorage.setItem("admin", payload.admin);
-          localStorage.setItem("super_admin", payload.super_admin); // Changed to match API response
-          localStorage.setItem("hostel_no", payload.hostel_no);
-          localStorage.setItem("user_id", payload.userId); // Changed "userId" to snake_case
-          localStorage.setItem("full_name", payload.full_name);
-          localStorage.setItem("currently_present", payload.present);
-          console.log(localStorage.getItem("admin"));
-          console.log(localStorage.getItem("hostel_no"));
-          const isAdmin = localStorage.getItem("admin") === "true";
-          const isSuperAdmin = localStorage.getItem("superadmin") === "true";
-          const hostel_no = localStorage.getItem("hostel_no");
-          console.log(isSuperAdmin);
-          if (isSuperAdmin) {
-            window.location.href = "/admindashboard";
-          } else if (isAdmin) {
-            window.location.href = `/admindashboard/${hostel_no}`;
-          } else {
-            window.location.href = "/";
-          }
+      if (jwtCookie) {
+        const jwtToken = jwtCookie.split("=")[1];
+        console.log("JWT Token:", jwtToken);
+
+        // Decode JWT token
+        const payload = extractValuesFromJWT(jwtToken);
+
+        // Store user details in localStorage
+        localStorage.setItem("cookie", jwtCookie);
+        localStorage.setItem("email", payload.email);
+        localStorage.setItem("admin", payload.admin);
+        localStorage.setItem("super_admin", payload.super_admin);
+        localStorage.setItem("hostel_no", payload.hostel_no);
+        localStorage.setItem("user_id", payload.userId);
+        localStorage.setItem("full_name", payload.full_name);
+        localStorage.setItem("currently_present", payload.present);
+
+        console.log(localStorage.getItem("admin"));
+        console.log(localStorage.getItem("hostel_no"));
+
+        // Redirect user based on role
+        const isAdmin = localStorage.getItem("admin") === "true";
+        const isSuperAdmin = localStorage.getItem("super_admin") === "true";
+        const hostel_no = localStorage.getItem("hostel_no");
+
+        console.log(isSuperAdmin);
+        if (isSuperAdmin) {
+          window.location.href = "/admindashboard";
+        } else if (isAdmin) {
+          window.location.href = `/admindashboard/${hostel_no}`;
         } else {
-          console.log("JWT cookie not found");
+          window.location.href = "/";
         }
       } else {
-        console.error("Login failed:", response.statusText);
+        console.log("JWT cookie not found");
       }
-    } catch (error) {
-      console.error("Error logging in:", error);
+    } else {
+      console.error("Login failed:", response.statusText);
     }
-  };
+  } catch (error) {
+    console.error("Error logging in:", error);
+  }
+};
 
   return (
     <div>
