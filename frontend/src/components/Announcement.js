@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { faBullhorn } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -38,9 +38,9 @@ function Announcement() {
     return () => clearInterval(intervalId);
   }, [hostel_no]);
 
-  const handleSeeMore = () => {
-    setVisibleAnnouncements(prevCount => prevCount + 5);
-  };
+  const handleSeeMore = useCallback(() => {
+    setVisibleAnnouncements((prev) => prev + 5);
+  }, []);
 
   return (
     <div className="bg-back relative">
